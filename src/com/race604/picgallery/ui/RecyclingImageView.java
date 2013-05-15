@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.bitmapfun.ui;
+package com.race604.picgallery.ui;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -22,7 +22,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.example.android.bitmapfun.util.RecyclingBitmapDrawable;
+import com.race604.bitmapcache.RecyclingBitmapDrawable;
 
 /**
  * Sub-class of ImageView which automatically notifies the drawable when it is

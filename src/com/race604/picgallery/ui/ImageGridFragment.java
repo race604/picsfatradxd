@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.bitmapfun.ui;
+package com.race604.picgallery.ui;
 
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
@@ -39,12 +39,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.android.bitmapfun.BuildConfig;
-import com.example.android.bitmapfun.R;
-import com.example.android.bitmapfun.provider.Images;
-import com.example.android.bitmapfun.util.ImageCache.ImageCacheParams;
-import com.example.android.bitmapfun.util.ImageFetcher;
-import com.example.android.bitmapfun.util.Utils;
+import com.race604.bitmapcache.ImageCache.ImageCacheParams;
+import com.race604.bitmapcache.ImageFetcher;
+import com.race604.bitmapcache.Utils;
+import com.race604.picgallery.BuildConfig;
+import com.race604.picgallery.R;
+import com.race604.picgallery.provider.Images;
 
 /**
  * The main fragment that powers the ImageGridActivity screen. Fairly straight forward GridView

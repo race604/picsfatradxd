@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.bitmapfun.provider;
+package com.race604.picgallery.provider;
 
 /**
  * Some simple test data to use for this sample app.

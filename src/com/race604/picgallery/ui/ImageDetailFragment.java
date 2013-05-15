@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.bitmapfun.ui;
+package com.race604.picgallery.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,10 +24,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.android.bitmapfun.R;
-import com.example.android.bitmapfun.util.ImageFetcher;
-import com.example.android.bitmapfun.util.ImageWorker;
-import com.example.android.bitmapfun.util.Utils;
+import com.race604.bitmapcache.ImageFetcher;
+import com.race604.bitmapcache.ImageWorker;
+import com.race604.bitmapcache.Utils;
+import com.race604.picgallery.R;
 
 /**
  * This fragment will populate the children of the ViewPager from {@link ImageDetailActivity}.
