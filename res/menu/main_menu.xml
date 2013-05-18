@@ -14,21 +14,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    <item
+        android:id="@+id/clear_cache"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:showAsAction="never"
+        android:title="@string/clear_cache_menu"/>
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-
-    <com.race604.picgallery.ui.RecyclingImageView
-        android:id="@+id/imageView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:contentDescription="@string/imageview_description" />
-
-</FrameLayout>
+</menu>

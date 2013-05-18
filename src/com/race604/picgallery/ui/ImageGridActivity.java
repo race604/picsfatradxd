@@ -19,6 +19,7 @@ package com.race604.picgallery.ui;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.view.WindowManager;
 
 import com.actionbarsherlock.view.MenuItem;
 import com.race604.picgallery.R;
@@ -38,6 +39,14 @@ public class ImageGridActivity extends SlidingFragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.image_grid);
+		
+		if (getSupportFragmentManager().findFragmentByTag(TAG) == null) {
+            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.grid, new ImageGridFragment(), TAG);
+            ft.commit();
+        }
 
 		// set the Behind View
 		setBehindContentView(R.layout.menu_frame);
@@ -61,15 +70,7 @@ public class ImageGridActivity extends SlidingFragmentActivity {
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-		if (getSupportFragmentManager().findFragmentByTag(TAG) == null) {
-			final FragmentTransaction ft = getSupportFragmentManager()
-					.beginTransaction();
-			ft.add(android.R.id.content, new ImageGridFragment(), TAG);
-			ft.commit();
-		}
 		
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	
 	@Override

@@ -33,11 +33,11 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Toast;
 
-import com.example.android.bitmapfun.BuildConfig;
-import com.example.android.bitmapfun.R;
-import com.example.android.bitmapfun.util.ImageCache;
-import com.example.android.bitmapfun.util.ImageFetcher;
-import com.example.android.bitmapfun.util.Utils;
+import com.race604.bitmapcache.ImageCache;
+import com.race604.bitmapcache.ImageFetcher;
+import com.race604.bitmapcache.Utils;
+import com.race604.picgallery.BuildConfig;
+import com.race604.picgallery.R;
 import com.race604.picgallery.provider.Images;
 
 public class ImageDetailActivity extends FragmentActivity implements OnClickListener {
