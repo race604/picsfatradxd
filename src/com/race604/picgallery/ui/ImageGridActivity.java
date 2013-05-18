@@ -70,7 +70,6 @@ public class ImageGridActivity extends SlidingFragmentActivity {
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
 	}
 	
 	@Override
