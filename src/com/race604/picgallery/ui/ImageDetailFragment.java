@@ -26,8 +26,8 @@ import android.widget.ImageView;
 
 import com.race604.bitmapcache.ImageFetcher;
 import com.race604.bitmapcache.ImageWorker;
-import com.race604.bitmapcache.Utils;
 import com.race604.picgallery.R;
+import com.race604.picgallery.Utils;
 
 /**
  * This fragment will populate the children of the ViewPager from {@link ImageDetailActivity}.

@@ -15,7 +15,8 @@
   limitations under the License.
 -->
 
-<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.handmark.pulltorefresh.library.PullToRefreshGridView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
     android:id="@+id/gridView"
     style="@style/PhotoGridLayout"
     android:layout_width="fill_parent"
@@ -24,6 +25,8 @@
     android:horizontalSpacing="@dimen/image_thumbnail_spacing"
     android:numColumns="auto_fit"
     android:stretchMode="columnWidth"
-    android:verticalSpacing="@dimen/image_thumbnail_spacing" >
+    android:verticalSpacing="@dimen/image_thumbnail_spacing"
+    ptr:ptrMode="both"
+    ptr:ptrShowIndicator="false" >
 
-</GridView>
+</com.handmark.pulltorefresh.library.PullToRefreshGridView>

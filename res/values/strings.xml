@@ -14,5 +14,10 @@
         <item>Home</item>
         <item>Collect</item>
     </string-array>
+    
+    <string name="save_image_menu">Save Image</string>
+    <string name="as_wallpaper_menu">Use As</string>
+    <string name="share_image_menu">Share</string>
+    <string name="saved_image_toast">Image is saved to: </string>
 
 </resources>

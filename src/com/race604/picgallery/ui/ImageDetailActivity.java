@@ -18,6 +18,9 @@ package com.race604.picgallery.ui;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -35,9 +38,9 @@ import android.widget.Toast;
 
 import com.race604.bitmapcache.ImageCache;
 import com.race604.bitmapcache.ImageFetcher;
-import com.race604.bitmapcache.Utils;
 import com.race604.picgallery.BuildConfig;
 import com.race604.picgallery.R;
+import com.race604.picgallery.Utils;
 import com.race604.picgallery.provider.Images;
 
 public class ImageDetailActivity extends FragmentActivity implements OnClickListener {
@@ -51,9 +54,6 @@ public class ImageDetailActivity extends FragmentActivity implements OnClickList
     @TargetApi(11)
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        if (BuildConfig.DEBUG) {
-            Utils.enableStrictMode();
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_detail_pager);
 
@@ -81,7 +81,7 @@ public class ImageDetailActivity extends FragmentActivity implements OnClickList
         mImageFetcher.setImageFadeIn(false);
 
         // Set up ViewPager and backing adapter
-        mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), Images.imageUrls.length);
+        mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), Images.get().getCount());
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
         mPager.setPageMargin((int) getResources().getDimension(R.dimen.image_detail_pager_margin));
@@ -154,13 +154,37 @@ public class ImageDetailActivity extends FragmentActivity implements OnClickList
                 Toast.makeText(
                         this, R.string.clear_cache_complete_toast,Toast.LENGTH_SHORT).show();
                 return true;
+    		case R.id.save_image: {
+    			int idx = mPager.getCurrentItem();
+    			String url = Images.get().getImage(idx).url;
+    			// String filename = Utils.getFileName(key);
+    			SavedTask task = new SavedTask();
+    			task.execute(url);
+    			return true;
+    		}
+    		case R.id.as_wallpaper: {
+    			int idx = mPager.getCurrentItem();
+    			String url = Images.get().getImage(idx).url;
+    			// String filename = Utils.getFileName(key);
+    			SetAsTask task = new SetAsTask();
+    			task.execute(url);
+    			return true;
+    		}
+    		case R.id.share_image: {
+    			int idx = mPager.getCurrentItem();
+    			String url = Images.get().getImage(idx).url;
+    			// String filename = Utils.getFileName(key);
+    			SendImageTask task = new SendImageTask();
+    			task.execute(url);
+    			return true;
+    		}
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        getMenuInflater().inflate(R.menu.detail_menu, menu);
         return true;
     }
 
@@ -191,7 +215,7 @@ public class ImageDetailActivity extends FragmentActivity implements OnClickList
 
         @Override
         public Fragment getItem(int position) {
-            return ImageDetailFragment.newInstance(Images.imageUrls[position]);
+            return ImageDetailFragment.newInstance(Images.get().getImage(position).url);
         }
     }
 
@@ -208,5 +232,64 @@ public class ImageDetailActivity extends FragmentActivity implements OnClickList
         } else {
             mPager.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
         }
+    }
+    
+    class SaveImageTask extends AsyncTask<String, Void, Uri> {
+
+		@Override
+		protected Uri doInBackground(String... params) {
+			if (params == null || params.length <= 0) {
+				return null;
+			}
+			
+			String filename = Utils.getFileName(params[0]);
+			return mImageFetcher.saveImage(params[0], filename);
+		}
+
+    }
+    
+    class SavedTask extends SaveImageTask {
+
+		@Override
+		protected void onPostExecute(Uri result) {
+			super.onPostExecute(result);
+			
+			if (result != null) {
+				String msg = getString(R.string.saved_image_toast) + result.getPath();
+				Toast.makeText(ImageDetailActivity.this, msg, Toast.LENGTH_SHORT).show();
+			}
+		}
+    }
+    
+    class SetAsTask extends SaveImageTask {
+
+		@Override
+		protected void onPostExecute(Uri result) {
+			super.onPostExecute(result);
+			
+			if (result != null) {
+				Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
+				intent.setDataAndType(result, "image/jpg");
+				intent.putExtra("mimeType", "image/jpg");
+				startActivity(intent);
+
+			}
+		}
+    }
+    
+    class SendImageTask extends SaveImageTask {
+
+		@Override
+		protected void onPostExecute(Uri result) {
+			super.onPostExecute(result);
+			
+			if (result != null) {
+				Intent intent = new Intent(Intent.ACTION_SEND);
+				intent.setType("image/jpeg");
+				intent.putExtra(Intent.EXTRA_STREAM, result);
+				startActivity(intent);
+
+			}
+		}
     }
 }

@@ -124,9 +124,9 @@ public class ImageResizer extends ImageWorker {
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
         // If we're running on Honeycomb or newer, try to use inBitmap
-        if (Utils.hasHoneycomb()) {
-            addInBitmapOptions(options, cache);
-        }
+//        if (Utils.hasHoneycomb()) {
+//            addInBitmapOptions(options, cache);
+//        }
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
@@ -155,9 +155,9 @@ public class ImageResizer extends ImageWorker {
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
         // If we're running on Honeycomb or newer, try to use inBitmap
-        if (Utils.hasHoneycomb()) {
-            addInBitmapOptions(options, cache);
-        }
+//        if (Utils.hasHoneycomb()) {
+//            addInBitmapOptions(options, cache);
+//        }
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
@@ -189,31 +189,31 @@ public class ImageResizer extends ImageWorker {
         options.inJustDecodeBounds = false;
 
         // If we're running on Honeycomb or newer, try to use inBitmap
-        if (Utils.hasHoneycomb()) {
-            addInBitmapOptions(options, cache);
-        }
+//        if (Utils.hasHoneycomb()) {
+//            addInBitmapOptions(options, cache);
+//        }
 
         return BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private static void addInBitmapOptions(BitmapFactory.Options options, ImageCache cache) {
-        // inBitmap only works with mutable bitmaps so force the decoder to
-        // return mutable bitmaps.
-        options.inMutable = true;
-
-        if (cache != null) {
-            // Try and find a bitmap to use for inBitmap
-            Bitmap inBitmap = cache.getBitmapFromReusableSet(options);
-
-            if (inBitmap != null) {
-                if (BuildConfig.DEBUG) {
-                    Log.d(TAG, "Found bitmap to use for inBitmap");
-                }
-                options.inBitmap = inBitmap;
-            }
-        }
-    }
+//    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+//    private static void addInBitmapOptions(BitmapFactory.Options options, ImageCache cache) {
+//        // inBitmap only works with mutable bitmaps so force the decoder to
+//        // return mutable bitmaps.
+//        options.inMutable = true;
+//
+//        if (cache != null) {
+//            // Try and find a bitmap to use for inBitmap
+//            Bitmap inBitmap = cache.getBitmapFromReusableSet(options);
+//
+//            if (inBitmap != null) {
+//                if (BuildConfig.DEBUG) {
+//                    Log.d(TAG, "Found bitmap to use for inBitmap");
+//                }
+//                options.inBitmap = inBitmap;
+//            }
+//        }
+//    }
 
     /**
      * Calculate an inSampleSize for use in a {@link BitmapFactory.Options} object when decoding

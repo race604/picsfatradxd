@@ -32,6 +32,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.race604.picgallery.BuildConfig;
+import com.race604.picgallery.Utils;
 
 /**
  * This class wraps up completing some arbitrary long running work when loading a bitmap to an
@@ -42,7 +43,7 @@ public abstract class ImageWorker {
     private static final String TAG = "ImageWorker";
     private static final int FADE_IN_TIME = 200;
 
-    private ImageCache mImageCache;
+    protected ImageCache mImageCache;
     private ImageCache.ImageCacheParams mImageCacheParams;
     private Bitmap mLoadingBitmap;
     private boolean mFadeInBitmap = true;

@@ -22,8 +22,10 @@ import android.support.v4.app.ListFragment;
 import android.view.WindowManager;
 
 import com.actionbarsherlock.view.MenuItem;
+import com.race604.picgallery.FileUtils;
 import com.race604.picgallery.R;
 import com.race604.picgallery.fragment.MenuFragment;
+import com.race604.picgallery.provider.Images;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -70,6 +72,8 @@ public class ImageGridActivity extends SlidingFragmentActivity {
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		Images.get().restoreFromCache(this);
 	}
 	
 	@Override
@@ -81,4 +85,11 @@ public class ImageGridActivity extends SlidingFragmentActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		Images.get().saveToCache(this);
+	}
+	
 }
