@@ -41,6 +41,8 @@ import com.race604.bitmapcache.ImageFetcher;
 import com.race604.picgallery.BuildConfig;
 import com.race604.picgallery.R;
 import com.race604.picgallery.Utils;
+import com.race604.picgallery.db.CollectionDao;
+import com.race604.picgallery.provider.ImageMeta;
 import com.race604.picgallery.provider.Images;
 
 public class ImageDetailActivity extends FragmentActivity implements OnClickListener {
@@ -154,6 +156,13 @@ public class ImageDetailActivity extends FragmentActivity implements OnClickList
                 Toast.makeText(
                         this, R.string.clear_cache_complete_toast,Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.collect_image: {
+    			int idx = mPager.getCurrentItem();
+    			ImageMeta img = Images.get().getImage(idx);
+    			CollectionDao dao = CollectionDao.getInstance();
+    			dao.addOrUpdateCollection(img);
+    			return true;
+    		}
     		case R.id.save_image: {
     			int idx = mPager.getCurrentItem();
     			String url = Images.get().getImage(idx).url;

@@ -12,9 +12,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.race604.picgallery.R;
+import com.race604.picgallery.provider.CollectionsInDB;
+import com.race604.picgallery.provider.JandanOOXX;
 import com.race604.picgallery.ui.ImageGridActivity;
 
 public class MenuFragment extends ListFragment {
+	
+	private static final int[] ICONS = {R.drawable.collections_cloud, R.drawable.collections_view_as_grid};
 	
 	private static class MenuItem {
 		public String name;
@@ -38,7 +42,7 @@ public class MenuFragment extends ListFragment {
 		MenuAdapter adapter = new MenuAdapter(getActivity());
 		int len = items.length;
 		for (int i = 0; i < len; i++) {
-			adapter.add(new MenuItem(items[i], android.R.drawable.ic_menu_gallery));
+			adapter.add(new MenuItem(items[i], ICONS[i]));
 		}
 		setListAdapter(adapter);
 	}
@@ -67,7 +71,16 @@ public class MenuFragment extends ListFragment {
 		
 		if (getActivity() instanceof ImageGridActivity) {
 			ImageGridActivity activity = (ImageGridActivity) getActivity();
-			// do some thing
+			switch (position) {
+			case 0:
+				activity.setImageProvider(JandanOOXX.getInstance());
+				activity.showContent();
+				break;
+			case 1:
+				activity.setImageProvider(CollectionsInDB.getInstance());
+				activity.showContent();
+				break;
+			}
 		}
 	}
 

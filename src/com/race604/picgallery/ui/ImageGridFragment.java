@@ -50,6 +50,7 @@ import com.race604.bitmapcache.ImageFetcher;
 import com.race604.picgallery.BuildConfig;
 import com.race604.picgallery.R;
 import com.race604.picgallery.Utils;
+import com.race604.picgallery.provider.IProvider;
 import com.race604.picgallery.provider.ImageMeta;
 import com.race604.picgallery.provider.Images;
 import com.race604.picgallery.provider.JandanOOXX;
@@ -71,12 +72,11 @@ public class ImageGridFragment extends Fragment implements
 	private int mImageThumbSpacing;
 	private ImageAdapter mAdapter;
 	private ImageFetcher mImageFetcher;
+	
+	private IProvider mImageProvider = JandanOOXX.getInstance();
 
-	private JandanOOXX mImageProvider = new JandanOOXX();
 	private GetImageTask mTask;
 	private PullToRefreshGridView mPullRefreshGridView;
-
-	private int mPage = -1;
 
 	/**
 	 * Empty constructor as per the Fragment documentation
@@ -427,6 +427,7 @@ public class ImageGridFragment extends Fragment implements
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			mPullRefreshGridView.setRefreshing();
 		}
 
 	}
@@ -440,5 +441,11 @@ public class ImageGridFragment extends Fragment implements
 	public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
 		loadImage(false);
 	}
-
+	
+	public void setImageProvider(IProvider provider) {
+		if (provider != null && mImageProvider != provider) {
+			mImageProvider = provider;
+			loadImage(true);
+		}
+	}
 }

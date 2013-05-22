@@ -1,8 +1,12 @@
 package com.race604.picgallery.db;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.race604.picgallery.provider.ImageMeta;
 
@@ -10,7 +14,7 @@ public class CollectionDao extends BaseDao {
 
 	public static final String TABLE_NAME = "collections";
 	private static final String CREATE_TABLE = "create table " + TABLE_NAME
-			+ " (_id  integer primary key autoincrement, "
+			+ " (_id integer primary key autoincrement, "
 			+ "url text, add_time long);";
 	
 	private static CollectionDao mInstance;
@@ -38,7 +42,9 @@ public class CollectionDao extends BaseDao {
 		ContentValues cv = new ContentValues();
 		cv.put("url", img.url);
 		cv.put("add_time", System.currentTimeMillis());
-		return getDataBase().insert(TABLE_NAME, null, cv);
+		long id = getDataBase().insert(TABLE_NAME, null, cv);
+		Log.d("test", "id = " + id);
+		return id;
 	}
 
 	public long updateCollection(ImageMeta img) {
@@ -71,6 +77,24 @@ public class CollectionDao extends BaseDao {
 			c.close();
 			return false;
 		}
+	}
+	
+	public List<ImageMeta> getImages(int start, int num) {
+		Cursor c = getDataBase().rawQuery("select * from " + TABLE_NAME, null);
+		List<ImageMeta> list = new ArrayList<ImageMeta>(num);
+		int index = 0;
+		c.moveToFirst();
+		while (index < start && !c.moveToNext()) {
+			index++;
+		}
+		
+		while (index < start + num && !c.moveToNext()) {
+			String url = c.getString(1);
+			ImageMeta img = new ImageMeta(url);
+			list.add(img);
+			index++;
+		}
+		return list;
 	}
 
 }

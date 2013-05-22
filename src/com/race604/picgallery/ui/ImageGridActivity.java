@@ -19,15 +19,15 @@ package com.race604.picgallery.ui;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
-import android.view.WindowManager;
 
 import com.actionbarsherlock.view.MenuItem;
-import com.race604.picgallery.FileUtils;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.race604.picgallery.R;
 import com.race604.picgallery.fragment.MenuFragment;
+import com.race604.picgallery.provider.IProvider;
 import com.race604.picgallery.provider.Images;
-import com.slidingmenu.lib.SlidingMenu;
-import com.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.race604.picgallery.provider.JandanOOXX;
 
 /**
  * Simple FragmentActivity to hold the main {@link ImageGridFragment} and not
@@ -37,7 +37,7 @@ public class ImageGridActivity extends SlidingFragmentActivity {
 	private static final String TAG = "ImageGridActivity";
 
 	private ListFragment mMenuFragment;
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -90,6 +90,13 @@ public class ImageGridActivity extends SlidingFragmentActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		Images.get().saveToCache(this);
+	}
+	
+	public void setImageProvider(IProvider provider) {
+		ImageGridFragment fg = (ImageGridFragment) getSupportFragmentManager().findFragmentByTag(TAG);
+		if (fg != null) {
+			fg.setImageProvider(provider);
+		}
 	}
 	
 }

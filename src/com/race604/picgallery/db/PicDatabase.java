@@ -10,7 +10,7 @@ public class PicDatabase extends SQLiteOpenHelper {
 	
 	private static final String TAG = "PicDatabase";
 
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 1;
 
     private final static String DB_NAME = "pictures.db";
 

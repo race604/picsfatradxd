@@ -24,6 +24,17 @@ public class JandanOOXX implements IProvider {
 
 	private int mPage;
 	private MyNodeVisitor mVisitor = new MyNodeVisitor();
+	
+	private static JandanOOXX mInstance;
+	
+	private JandanOOXX() {}
+	
+	public static IProvider getInstance() {
+		if (mInstance == null) {
+			mInstance = new JandanOOXX();
+		}
+		return mInstance;
+	}
 
 	@Override
 	public List<ImageMeta> refresh() {
@@ -173,4 +184,5 @@ public class JandanOOXX implements IProvider {
 		}
 
 	}
+
 }
