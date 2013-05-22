@@ -80,20 +80,22 @@ public class CollectionDao extends BaseDao {
 	}
 	
 	public List<ImageMeta> getImages(int start, int num) {
-		Cursor c = getDataBase().rawQuery("select * from " + TABLE_NAME, null);
+		Cursor c = getDataBase().query(TABLE_NAME, null, null, null, null, null, 
+				"add_time DESC", String.valueOf(start + num));
 		List<ImageMeta> list = new ArrayList<ImageMeta>(num);
 		int index = 0;
 		c.moveToFirst();
-		while (index < start && !c.moveToNext()) {
+		while (index < start && c.moveToNext()) {
 			index++;
 		}
 		
-		while (index < start + num && !c.moveToNext()) {
+		while (index < start + num && c.moveToNext()) {
 			String url = c.getString(1);
 			ImageMeta img = new ImageMeta(url);
 			list.add(img);
 			index++;
 		}
+		c.close();
 		return list;
 	}
 
