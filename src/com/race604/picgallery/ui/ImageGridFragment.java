@@ -67,6 +67,7 @@ public class ImageGridFragment extends Fragment implements
 		AdapterView.OnItemClickListener, OnRefreshListener2<GridView> {
 	private static final String TAG = "ImageGridFragment";
 	private static final String IMAGE_CACHE_DIR = "thumbs";
+	private static final int REQUEST_CODE = 1000;
 
 	private int mImageThumbSize;
 	private int mImageThumbSpacing;
@@ -209,9 +210,9 @@ public class ImageGridFragment extends Fragment implements
 			// makeScaleUpAnimation() instead.
 			ActivityOptions options = ActivityOptions.makeScaleUpAnimation(v,
 					0, 0, v.getWidth(), v.getHeight());
-			getActivity().startActivity(i, options.toBundle());
+			getActivity().startActivityForResult(i, REQUEST_CODE, options.toBundle());
 		} else {
-			startActivity(i);
+			startActivityForResult(i, REQUEST_CODE);
 		}
 	}
 
@@ -230,6 +231,22 @@ public class ImageGridFragment extends Fragment implements
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == REQUEST_CODE && data != null) {
+			int position = data.getIntExtra(ImageDetailActivity.EXTRA_IMAGE, -1);
+			if (position >= mAdapter.getCount()) {
+				mAdapter.notifyDataSetChanged();
+			}
+			if (position >= 0) {
+				mPullRefreshGridView.getRefreshableView().smoothScrollToPosition(position);
+				mAdapter.notifyDataSetChanged();
+				mPullRefreshGridView.requestLayout();
+			}
+		}
 	}
 
 	/**

@@ -20,7 +20,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.race604.picgallery.ui.ImageGridActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,6 +35,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.ImageGridActivity" />
         </activity>
+        
+       <activity android:name="com.google.ads.AdActivity"
+           android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>F
+        
+        <meta-data android:value="YOUR_APP_KEY" android:name="519d582656240b1da4034cd6"></meta-data>
+		<meta-data android:value="Channel ID" android:name="GooglePlay"/>	
     </application>
 
 </manifest>

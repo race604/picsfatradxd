@@ -18,6 +18,7 @@ package com.race604.picgallery.ui;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -44,6 +45,7 @@ import com.race604.picgallery.Utils;
 import com.race604.picgallery.db.CollectionDao;
 import com.race604.picgallery.provider.ImageMeta;
 import com.race604.picgallery.provider.Images;
+import com.umeng.analytics.MobclickAgent;
 
 public class ImageDetailActivity extends FragmentActivity implements OnClickListener {
     private static final String IMAGE_CACHE_DIR = "images";
@@ -130,6 +132,7 @@ public class ImageDetailActivity extends FragmentActivity implements OnClickList
     public void onResume() {
         super.onResume();
         mImageFetcher.setExitTasksEarly(false);
+        MobclickAgent.onResume(this);
     }
 
     @Override
@@ -137,6 +140,7 @@ public class ImageDetailActivity extends FragmentActivity implements OnClickList
         super.onPause();
         mImageFetcher.setExitTasksEarly(true);
         mImageFetcher.flushCache();
+        MobclickAgent.onPause(this);
     }
 
     @Override
@@ -190,8 +194,19 @@ public class ImageDetailActivity extends FragmentActivity implements OnClickList
         }
         return super.onOptionsItemSelected(item);
     }
+    
+    
 
     @Override
+	public void finish() {
+		int position = mPager.getCurrentItem();
+		final Intent i = new Intent();
+		i.putExtra(ImageDetailActivity.EXTRA_IMAGE, position);
+		setResult(Activity.RESULT_OK, i);
+		super.finish();
+	}
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail_menu, menu);
         return true;

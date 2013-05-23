@@ -16,6 +16,7 @@
 
 package com.race604.picgallery.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
@@ -28,6 +29,7 @@ import com.race604.picgallery.fragment.MenuFragment;
 import com.race604.picgallery.provider.IProvider;
 import com.race604.picgallery.provider.Images;
 import com.race604.picgallery.provider.JandanOOXX;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Simple FragmentActivity to hold the main {@link ImageGridFragment} and not
@@ -41,6 +43,7 @@ public class ImageGridActivity extends SlidingFragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		MobclickAgent.onError(this);
 		
 		setContentView(R.layout.image_grid);
 		
@@ -77,6 +80,18 @@ public class ImageGridActivity extends SlidingFragmentActivity {
 	}
 	
 	@Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
@@ -90,6 +105,15 @@ public class ImageGridActivity extends SlidingFragmentActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		Images.get().saveToCache(this);
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		ImageGridFragment fg = (ImageGridFragment) getSupportFragmentManager().findFragmentByTag(TAG);
+		if (fg != null) {
+			fg.onActivityResult(requestCode, resultCode, data);
+		}
 	}
 	
 	public void setImageProvider(IProvider provider) {
