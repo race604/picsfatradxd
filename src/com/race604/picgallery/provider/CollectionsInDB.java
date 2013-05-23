@@ -2,6 +2,7 @@ package com.race604.picgallery.provider;
 
 import java.util.List;
 
+import com.race604.picgallery.R;
 import com.race604.picgallery.db.CollectionDao;
 
 public class CollectionsInDB implements IProvider{

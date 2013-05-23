@@ -18,9 +18,9 @@
 
     <item
         android:id="@+id/collect_image"
-        android:icon="@drawable/rating_good"
+        android:icon="@drawable/ic_action_star"
         android:showAsAction="ifRoom"
-        android:title="@string/save_image_menu"/>
+        android:title="@string/collect_image_menu"/>
     
     <item
         android:id="@+id/save_image"

@@ -75,6 +75,7 @@ public class ImageDetailFragment extends Fragment {
         // Inflate and locate the main ImageView
         final View v = inflater.inflate(R.layout.image_detail_fragment, container, false);
         mImageView = (ImageView) v.findViewById(R.id.imageView);
+        
         return v;
     }
 
@@ -90,7 +91,7 @@ public class ImageDetailFragment extends Fragment {
         }
 
         // Pass clicks on the ImageView to the parent activity to handle
-        if (OnClickListener.class.isInstance(getActivity()) && Utils.hasHoneycomb()) {
+        if (OnClickListener.class.isInstance(getActivity())) {
             mImageView.setOnClickListener((OnClickListener) getActivity());
         }
     }

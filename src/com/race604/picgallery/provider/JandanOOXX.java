@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.race604.http.HttpClient;
 import com.race604.http.HttpException;
+import com.race604.picgallery.R;
 import com.race604.picgallery.Utils;
 
 public class JandanOOXX implements IProvider {

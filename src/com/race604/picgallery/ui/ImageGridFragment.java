@@ -270,8 +270,12 @@ public class ImageGridFragment extends Fragment implements
 					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 			// Calculate ActionBar height
 			TypedValue tv = new TypedValue();
-			if (context.getTheme().resolveAttribute(
-					android.R.attr.actionBarSize, tv, true)) {
+			
+			if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+				mActionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
+			
+			if (mActionBarHeight == 0 && context.getTheme().resolveAttribute(com.actionbarsherlock.R.attr.actionBarSize,
+					tv, true)) {
 				mActionBarHeight = TypedValue.complexToDimensionPixelSize(
 						tv.data, context.getResources().getDisplayMetrics());
 			}

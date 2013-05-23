@@ -18,7 +18,7 @@ import com.race604.picgallery.ui.ImageGridActivity;
 
 public class MenuFragment extends ListFragment {
 	
-	private static final int[] ICONS = {R.drawable.collections_cloud, R.drawable.collections_view_as_grid};
+	private static final int[] ICONS = {R.drawable.collections_cloud, R.drawable.ic_action_star};
 	
 	private static class MenuItem {
 		public String name;
@@ -74,10 +74,12 @@ public class MenuFragment extends ListFragment {
 			switch (position) {
 			case 0:
 				activity.setImageProvider(JandanOOXX.getInstance());
+				activity.getSupportActionBar().setIcon(R.drawable.collections_cloud);
 				activity.showContent();
 				break;
 			case 1:
 				activity.setImageProvider(CollectionsInDB.getInstance());
+				activity.getSupportActionBar().setIcon(R.drawable.collections_view_as_grid);
 				activity.showContent();
 				break;
 			}
